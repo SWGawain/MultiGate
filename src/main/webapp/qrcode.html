@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>QRcode page</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<p>请输入内容：（点击空白生成二维码）</p>
+<textarea id="content" cols="100" rows="20" style="margin-bottom: 20px"></textarea>
+
+<div id="output"></div>
+
+<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.qrcode.min.js"></script>
+<script>
+jQuery(function(){
+
+    $("#content").blur(function () {
+
+        var $val = $(this).val();
+
+        if($val != undefined && $val != ""){
+            $("#output").html("");
+            $("#output").qrcode({
+//                render: "table", //table方式
+                width: 200, //宽度
+                height: 200, //高度
+                text: $val //任意内容
+            })
+        }else{
+            $("#output").html("");
+        }
+    })
+	
+})
+</script>
+
+</body>
+</html>
