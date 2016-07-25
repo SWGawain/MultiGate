@@ -6,6 +6,7 @@ All tools for MultiGates here
 2. Trade page for TL
 3. Redis utils 
 4. Release page for LL
+5. QR code page
 
 
 # Personal project.
