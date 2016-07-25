@@ -5,7 +5,7 @@
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
 
-    <!-- Spring Application Context Listener Start -->
+    <!-- Spring Application Context Listener Start
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath*:applicationContext.xml</param-value>
@@ -14,7 +14,7 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    <!-- Spring Application Context Listener End -->
+     Spring Application Context Listener End -->
 
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
