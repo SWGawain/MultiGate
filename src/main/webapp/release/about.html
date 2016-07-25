@@ -1,0 +1,88 @@
+<div id="config" style="display: none">
+    <div class="row plus">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="orgNo">OrgNo</label>
+                <input type="text" class="form-control" id="orgNo" placeholder="M00000X">
+            </div>
+            <div class="form-group">
+                <label for="transCode">TransCode</label>
+                <input type="text" class="form-control" id="transCode" placeholder="19120">
+            </div>
+            <div class="form-group">
+                <label for="busiCode">BusiCode</label>
+                <input type="text" class="form-control" id="busiCode" placeholder="10001">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="sysNo">SysNo</label>
+                <input type="text" class="form-control" id="sysNo" placeholder="dsfxt001">
+            </div>
+            <div class="form-group">
+                <label for="sysKey">SysKey</label>
+                <input type="text" class="form-control" id="sysKey" placeholder="dsfxt0001">
+            </div>
+            <div class="form-group">
+                <label for="requestNo">RequestNo</label>
+                <input type="text" class="form-control" id="requestNo" placeholder="Req">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="channelNo">ChannelNo</label>
+                <input type="text" class="form-control" id="channelNo" placeholder="110109">
+            </div>
+            <div class="form-group">
+                <label for="signType">SignType</label>
+                <input type="text" class="form-control" id="signType" placeholder="1">
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row plus">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="dubboApi">dubbo_api</label>
+                <input type="text" class="form-control" id="dubboApi" placeholder="com.rkylin.gaterouter.service.AuthenticationService" list="dubboApiList">
+                <datalist id="dubboApiList">
+                    <option label="GateRouter" value="com.rkylin.gaterouter.service.AuthenticationService"/>
+                    <option label="TLGateWay" value="com.rkylin.gateway.service.GatewayAuthenticationService"/>
+                </datalist>
+            </div>
+            <div class="form-group">
+                <label for="dubboMethod">dubbo_method</label>
+                <input type="text" class="form-control" id="dubboMethod" placeholder="bankAccountCheck">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="dubboGroup">dubbo_group</label>
+                <input type="text" class="form-control" id="dubboGroup" placeholder="gaterouter" list="dubboGroupList">
+                <datalist id="dubboGroupList">
+                    <option label="GateRouter" value="gaterouter"/>
+                    <option label="TLGateWay" value="TongLian_AgentPay"/>
+                </datalist>
+            </div>
+            <div class="form-group">
+                <label for="dubboUrl">dubbo_url</label>
+                <input type="text" class="form-control" id="dubboUrl" list="dubboUrlList" placeholder="dubbo://121.40.236.90:38094">
+                <datalist id="dubboUrlList">
+                    <option label="dev" value="dubbo://121.40.236.90:38094"/>
+                    <option label="test58" value="dubbo://123.56.79.58:38094"/>
+                    <option label="uat" value="dubbo://120.26.104.20:38094"/>
+                </datalist>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="dubboVersion">dubbo_version</label>
+                <input type="text" class="form-control" id="dubboVersion" placeholder="1.0.0">
+            </div>
+        </div>
+    </div>
+    <hr>
+    <button type="button" class="btn btn-primary" style="margin-bottom: 20px" onclick="saveConfig()">save</button>
+
+</div>
+

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Trade</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="javascript:createTradePage();">Trade</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" id="infos">
+                <li><a href="javascript:createAboutPage();" id="about">About</a></li>
+            </ul>
+            <form class="navbar-form navbar-right" id="inputs">
+                <div class="form-group">
+                    <input type="text" placeholder="User" class="form-control" id="username">
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Pass" class="form-control" id="password">
+                </div>
+                <button type="button" class="btn btn-success" id="subInit" > Init </button>
+            </form>
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron" id="jumbotron">
+    <div class="container">
+        <h1>Hello,MuliGates</h1>
+        <p>Let's reinvents your trades！</p>
+        <div class="col-md-3" style="margin-left: -15px">
+            <input type="text" placeholder="url" class="form-control" id="url" list="url_list" value="121.40.236.90">
+            <datalist id="url_list">
+                <option label="dev" value="121.40.236.90" />
+                <option label="uat" value="120.26.104.20" />
+            </datalist>
+        </div>
+        <div class="col-md-1">
+             <a class="btn btn-primary" href="javascript:setUrl();" role="button" id="settle">Settle &raquo;</a>
+        </div>
+        <div class="col-md-3">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="mode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Indirect
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="javascript:setMode('Direct')">Direct</a></li>
+                    <li><a href="javascript:setMode('Indirect')">Indirect</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" >
+    <div id="alert"></div>
+    <div id="main"></div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="send">send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- /container -->
+
+
+
+
+
+
+<!-- Bootstrap core JavaScript
+        ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../js/jquery-1.10.1.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="trade.js"></script>
+<script src="page.js"></script>
+<script src="param.js"></script>
+<script src="../js/js.cookie.js"></script>
+</body>
+</html>
