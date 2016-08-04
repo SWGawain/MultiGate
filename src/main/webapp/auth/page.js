@@ -52,7 +52,7 @@ function createParamPage() {
 
             content_param += "<button type=\"button\" class=\"btn btn-primary btn-lg\" data-toggle=\"modal\" data-target=\"#myModal\" " +
             "onclick=\"confirmDetails()\">Confirm Auth detail</button>"+
-            "<img src=\"../css/loading.jpg\" style=\"width: 30px;margin-left: 20px; display: none\" id=\"loading\">";
+            "<img src=\"../res/css/loading.jpg\" style=\"width: 30px;margin-left: 20px; display: none\" id=\"loading\">";
 
             $("#main").append(content_param);
 

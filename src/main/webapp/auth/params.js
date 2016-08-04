@@ -34,6 +34,10 @@ function confirmDetails() {
         if(val ==""||val ==undefined||val==null){
             val = $ipt.attr("placeholder");
         }
+        if(val==" "){
+            val = "";
+        }
+
         content += $ipt.attr("id")+"="+val+"<br>";
     });
 
