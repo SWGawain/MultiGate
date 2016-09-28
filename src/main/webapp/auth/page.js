@@ -85,17 +85,17 @@ function generateContent(content,data) {
                 "<label for=\""+id+"\">"+value.name+"</label>";
 
             var _placeholder = value.placeholder==undefined?"":value.placeholder;
-            content += "<input type=\"text\" class=\"form-control\" id=\""+id+"\" placeholder=\""+_placeholder+"\">";
+            content += "<input type=\"text\" class=\"form-control\" id=\""+id+"\" list='"+id+"list' placeholder=\""+_placeholder+"\">";
 
             _divs[count] +=content;
 
             var dataList_json = value.dataList;
             if(dataList_json != undefined){
+                _divs[count] += "<datalist id=\""+id+"list\">";
                 $.each(dataList_json,function (key,value) {
-                    _divs[count] += "<datalist id=\""+id+"\">";
                     _divs[count] += "<option label=\""+key+"\" value=\""+value+"\"/>";
-                    _divs[count] += "</datalist>";
                 })
+                _divs[count] += "</datalist>";
             }
 
             _divs[count] += "</div>" ;

@@ -34,9 +34,7 @@ function confirmDetails() {
         if(val ==""||val ==undefined||val==null){
             val = $ipt.attr("placeholder");
         }
-        if(val==" "){
-            val = "";
-        }
+        val = val.trim();
 
         content += $ipt.attr("id")+"="+val+"<br>";
     });

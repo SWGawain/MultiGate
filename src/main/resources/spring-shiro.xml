@@ -21,6 +21,7 @@
         </property> -->
         <property name="filterChainDefinitions">
             <value>
+                / = anon
                 /res/** = noSessionCreation
                 /index/** = anon
                 /index.jsp = anon
