@@ -28,7 +28,7 @@
   	<link rel="shortcut icon" href="favicon.ico">
 
   	<!-- Google Webfont -->
-	<link href='http://fonts.useso.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+	<%--<link href='http://fonts.useso.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>--%>
 	<!-- Themify Icons -->
 	<link rel="stylesheet" href="index/css/themify-icons.css">
 	<!-- Bootstrap -->
@@ -309,14 +309,14 @@
 		<!-- FastClick for Mobile/Tablets -->
 		<script src="index/js/fastclick.js"></script>
 		<!-- Parallax -->
-		<script src="index/js/jquery.parallax-scroll.min.js"></script>
+		<%--<script src="index/js/jquery.parallax-scroll.min.js"></script>--%>
 		<!-- Waypoints -->
 		<script src="index/js/jquery.waypoints.min.js"></script>
 		<!-- Main JS -->
 		<script src="index/js/main.js"></script>
 
 		<!-- shiro JS -->
-		<script src="index/js/shiro.js"></script>
+		<%--<script src="index/js/shiro.js"></script>--%>
 
 	</body>
 </html>

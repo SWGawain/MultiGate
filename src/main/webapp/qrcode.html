@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <title>QRcode page</title>
-    <meta charset="UTF-8">
+    <meta charset="gbk">
 </head>
 <body>
-<p>è¯·è¾“å…¥å†…å®¹ï¼šï¼ˆç‚¹å‡»ç©ºç™½ç”ŸæˆäºŒç»´ç ï¼‰</p>
+<p>ÇëÊäÈëÄÚÈİ£º£¨µã»÷¿Õ°×Éú³É¶şÎ¬Âë£©</p>
 <textarea id="content" cols="100" rows="20" style="margin-bottom: 20px"></textarea>
 
 <div id="output"></div>
@@ -22,10 +22,10 @@ jQuery(function(){
         if($val != undefined && $val != ""){
             $("#output").html("");
             $("#output").qrcode({
-//                render: "table", //tableæ–¹å¼
-                width: 200, //å®½åº¦
-                height: 200, //é«˜åº¦
-                text: $val //ä»»æ„å†…å®¹
+//                render: "table", //table·½Ê½
+                width: 200, //¿í¶È
+                height: 200, //¸ß¶È
+                text: $val //ÈÎÒâÄÚÈİ
             })
         }else{
             $("#output").html("");

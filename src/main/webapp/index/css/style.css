@@ -25,7 +25,7 @@ html.fh5co-overflow #fh5co-header-section, html.fh5co-overflow #fh5co-main, html
 }
 
 body {
-  font-family: "Lato", arial, sans-serif;
+  font-family: "Microsoft YaHei UI", arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   font-weight: normal;
@@ -134,7 +134,7 @@ ul, ol, p {
 }
 
 .fh5co-sans-serif {
-  font-family: "Lato", arial, sans-serif;
+  font-family: "Microsoft YaHei UI", arial, sans-serif;
 }
 
 input[type="text"],
