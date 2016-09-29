@@ -144,7 +144,7 @@
 			<div class="container">
 				<div class="row" id="fh5co-features">
 					
-					<div class="col-md-4 col-sm-6 text-center fh5co-feature feature-box" onclick="window.location.href='trade/trade2.html'">
+					<div class="col-md-4 col-sm-6 text-center fh5co-feature feature-box" onclick="window.location.href='trade/trade.html'">
 						<div class="fh5co-feature-icon">
 							<i class="ti-mobile"></i>
 						</div>

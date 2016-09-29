@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript">
+        //默认交易码 -- 单笔代付
+        var tradeCode = "11011";
+        //默认业务码 -- 代付业务
+        var busiCode = "11101" ;
+        //渠道号
+        var channelNo = "111111";
+        //机构信息对应
+        var orgCodes = [
+            {orgNo:"TongLian_AgentPay_M00000X",orgCode:"200222000009005"},
+            {orgNo:"TongLian_AgentPay_M000001",orgCode:"200222000008708"},
+            {orgNo:"TongLian_AgentPay_M000003",orgCode:"200222000008786"},
+            {orgNo:"TongLian_AgentPay_M000005",orgCode:"200222000008705"},
+            {orgNo:"ChanJie_AgentPay_M00000X",orgCode:"cp2015101252275"},
+            {orgNo:"ChanJie_AgentPay_M000005",orgCode:"cp2015101252275"},
+            {orgNo:"UMP_AgentPay_M00000X",orgCode:"8789"},
+            {orgNo:"UMP_AgentPay_M000003",orgCode:"8789"},
+            {orgNo:"UMP_AgentPay_M000005",orgCode:"8789"}
+        ];
+        //渠道号对应
+        var channelNos = [
+            {channelName:"TongLian_AgentPay_11011_11101",channelNo:"110101"},
+            {channelName:"TongLian_AgentPay_11021_09100",channelNo:"110102"},
+            {channelName:"TongLian_AgentPay_11012_11101",channelNo:"110103"},
+            {channelName:"TongLian_AgentPay_11022_09100",channelNo:"110104"},
+
+            {channelName:"ChanJie_AgentPay_11011_11101",channelNo:"110201"},
+            {channelName:"ChanJie_AgentPay_11021_09100",channelNo:"110202"},
+            {channelName:"ChanJie_AgentPay_11012_11101",channelNo:"110203"},
+            {channelName:"ChanJie_AgentPay_11022_09100",channelNo:"110204"},
+
+            {channelName:"UMP_AgentPay_11011_11101",channelNo:"110301"},
+            {channelName:"UMP_AgentPay_11012_11101",channelNo:"110303"}
+        ];
+
+        var singlePay = "/singlePay";
+        var singleAcp = "/singleAcp";
+        var batchPay = "/batchPay";
+        var batchAcp = "/batchAcp";
+        //提交地址
+        var postUrl = singlePay;
+
+        //初始方法
+        $(function(){
+            appendTradeTable();
+			$("#submitBtn").click(function(){
+
+				var keys = [];
+
+				var values = [];
+
+                //公共信息
+				append(keys,"url");
+				append(values,$("#urlContent").val());
+				append(keys,"channel_mark");
+				append(values,$("#channel_mark").val());
+				append(keys,"sysNo");
+				append(values,$("#sysNo").val());
+				append(keys,"sysKey");
+				append(values,$("#sysKey").val());
+				append(keys,"orgNo");
+				append(values,$("#orgNo").val());
+				append(keys,"orgCode");
+				append(values,$("#orgCode").val());
+                append(keys,"requestNo");
+                append(values,"Req"+new Date().getTime()+count);
+                append(keys,"transCode");
+                append(values,tradeCode);
+                append(keys,"busiCode");
+                append(values,busiCode);
+                append(keys,"signType");
+                append(values,1);
+                append(keys,"channelNo");
+                append(values,channelNo=="111111"?"":channelNo);
+
+				if(tradeCode=="11011" || tradeCode=="11021"){//单笔代付
+
+					append(keys,"TransNo");
+					append(values,$("input[name='TransNo']").val());
+					append(keys,"PayAmount");
+					append(values,$("input[name='PayAmount']").val());
+					append(keys,"Currency");
+					append(values,$("input[name='Currency']").val());
+					append(keys,busiName+"AccountName");
+					append(values,$("input[name='"+busiName+"AccountName']").val());
+					append(keys,busiName+"AccountNo");
+					append(values,$("input[name='"+busiName+"AccountNo']").val());
+					append(keys,busiName+"AccountType");
+					append(values,$("input[name='"+busiName+"AccountType']").val());
+					append(keys,busiName+"BankName");
+					append(values,$("input[name='"+busiName+"BankName']").val());
+					append(keys,busiName+"BankNo");
+					append(values,$("input[name='"+busiName+"BankNo']").val());
+					append(keys,busiName+"DistrictCode");
+					append(values,$("input[name='"+busiName+"DistrictCode']").val());
+					append(keys,"Summary");
+					append(values,$("input[name='Summary']").val());
+					append(keys,"Purpose");
+					append(values,$("input[name='Purpose']").val());
+
+				}else if(tradeCode=="11012" || tradeCode=="11022"){//批量代付
+					var listName = busiCode=="11101" ? "agentPayDtoList" : "agentAcpDtoList" ;
+					for(var i = 1;i<count;i++){
+						append(keys,listName+"["+i+"].TransNo");
+						append(values,$("#detail_"+i+" input[name='TransNo']").val());
+						append(keys,listName+"["+i+"].PayAmount");
+						append(values,$("#detail_"+i+" input[name='PayAmount']").val());
+						append(keys,listName+"["+i+"].Currency");
+						append(values,$("#detail_"+i+" input[name='Currency']").val());
+						append(keys,listName+"["+i+"]."+busiName+"AccountName");
+						append(values,$("#detail_"+i+" input[name='"+busiName+"AccountName']").val());
+						append(keys,listName+"["+i+"]."+busiName+"AccountNo");
+						append(values,$("#detail_"+i+" input[name='"+busiName+"AccountNo']").val());
+						append(keys,listName+"["+i+"]."+busiName+"AccountType");
+						append(values,$("#detail_"+i+" input[name='"+busiName+"AccountType']").val());
+						append(keys,listName+"["+i+"]."+busiName+"BankName");
+						append(values,$("#detail_"+i+" input[name='"+busiName+"BankName']").val());
+						append(keys,listName+"["+i+"]."+busiName+"BankNo");
+						append(values,$("#detail_"+i+" input[name='"+busiName+"BankNo']").val());
+						append(keys,listName+"["+i+"]."+busiName+"DistrictCode");
+						append(values,$("#detail_"+i+" input[name='"+busiName+"DistrictCode']").val());
+						append(keys,listName+"["+i+"].Summary");
+						append(values,$("#detail_"+i+" input[name='Summary']").val());
+						append(keys,listName+"["+i+"].Purpose");
+						append(values,$("#detail_"+i+" input[name='Purpose']").val());
+                        append(keys,"signType");
+                        append(values,1);
+                        append(keys,"channelNo");
+                        append(values,channelNo=="1111111"?"":channelNo);
+					}
+                    //批次信息
+                    append(keys,"batchNo");
+                    append(values,$("input[name='BatchNo']").val());
+                    append(keys,"currency");
+                    append(values,$("input[name='Currency']").val());
+                    append(keys,"accountNo");
+                    append(values,$("input[name='AccountNo']").val());
+                    append(keys,"accountType");
+                    append(values,$("input[name='AccountType']").val());
+                    append(keys,"accountName");
+                    append(values,$("input[name='AccountName']").val());
+                    append(keys,"bankNo");
+                    append(values,$("input[name='BankNo']").val());
+                    append(keys,"bankName");
+                    append(values,$("input[name='BankName']").val());
+                    append(keys,"districtCode");
+                    append(values,$("input[name='DistrictCode']").val());
+                    append(keys,"purpose");
+                    append(values,$("input[name='Purpose']").val());
+                }
+
+                var params;
+
+                params = keys[0]+"="+values[0];
+
+				for(var i = 1;i<keys.length;i++){
+
+                    params += "&"+keys[i]+"="+values[i];
+
+				}
+
+                $.ajax({
+                    url:"/TLReceiver/dubbo"+postUrl,
+                    type:"POST",
+                    data:params,
+                    success:function(data){
+                        console.log(data);
+                    }
+                });
+
+			});
+        });
+        //交易明细计数
+        var count = 1 ;
+        //扩展明细
+        var busiName = "";
+        function appendTradeTable(){
+            var $details = $("#details");
+            busiName = busiCode=="11101" ? "Receiver" : "Payer" ;
+            var delpStr =
+                    '<td>'+
+                    '<input type="button" value="删除" style="width: 45px;height: 45px;" onclick="delDetail(this)">'+
+                    '</td>';
+            $details.append(
+                '<div class="detail" id="detail_'+count+'" style="border-bottom:1px dashed">'+
+                '<table>'+
+                '<tr>'+
+                    '<td style="width: 600px;">'+
+                    '<p>No.'+count+'</p>'+
+                    '<p><span>TransNo：</span><input type="text" name="TransNo" value="T'+new Date().getTime()+count+'"/></p>'+
+                    '<p><span>PayAmount：</span><input type="text" name="PayAmount" value="1"/></p>'+
+                    '<p><span>Currency：</span><input type="text" name="Currency" value="CNY"/></p>'+
+                    '<p><span>'+busiName+'AccountName：</span><input type="text" name="'+busiName+'AccountName" value="王嘉玮"/></p>'+
+                    '<p><span>'+busiName+'AccountNo：</span><input type="text" name="'+busiName+'AccountNo" value="6225885221560659"/></p>'+
+                    '<p><span>'+busiName+'AccountType：</span><input type="text" name="'+busiName+'AccountType" value="10"/></p>'+
+                    '<p><span>'+busiName+'BankName：</span><input type="text" name="'+busiName+'BankName" value="中国招商银行"/></p>'+
+                    '<p><span>'+busiName+'BankNo：</span><input type="text" name="'+busiName+'BankNo" value="308"/></p>'+
+                    '<p><span>'+busiName+'DistrictCode：</span><input type="text" name="'+busiName+'DistrictCode" value="010"/></p>'+
+                    '<p><span>Summary：</span><input type="text" name="Summary" value="摘要"/></p>'+
+                    '<p><span>Purpose：</span><input type="text" name="Purpose" value="意图"/></p>'+
+                    '</td>'+
+                    (count == 1 ? "" : delpStr) +
+                '</tr>'+
+                '</table>'+
+                '</div>'
+            );
+            count ++ ;
+        }
+        //扩展批次信息
+        function appendBatch(){
+            var $details = $("#details");
+            $details.after(
+                    '<div class="detail" id="batch" style="border-bottom:1px dashed">' +
+                    '<p style="font-weight: bold">批次信息</p>'+
+                    '<p><span>BatchNo:</span><input type="text" name="BatchNo" value="B'+new Date().getTime()+'"></p>'+
+                    '<p><span>Currency</span><input type="text" name="Currency" value="CNY"></p>'+
+                    '<p><span>AccountNo</span><input type="text" name="AccountNo" value="6225885221560659"></p>'+
+                    '<p><span>AccountType</span><input type="text" name="AccountType" value="10"></p>'+
+                    '<p><span>AccountName</span><input type="text" name="AccountName" value="王嘉玮"></p>'+
+                    '<p><span>BankNo</span><input type="text" name="BankNo" value="308"></p>'+
+                    '<p><span>BankName</span><input type="text" name="BankName" value="中国招商银行"></p>'+
+                    '<p><span>DistrictCode</span><input type="text" name="DistrictCode" value="010"></p>'+
+                    '<p><span>Purpose</span><input type="text" name="Purpose" value="意图"></p>'+
+                    '</div>'
+            );
+        }
+        //更换机构代码
+        function changeOrgCode(){
+            $.each(orgCodes,function(i){
+                var chooseOrgNo = $("#channel_mark").val()+"_"+$("#orgNo").val() ;
+                var $orgCodeInput = $("#orgCode");
+                if(orgCodes[i].orgNo == chooseOrgNo){
+                    $orgCodeInput.val(orgCodes[i].orgCode);
+                    return false ;
+                }
+                $orgCodeInput.val("");
+            })
+        }
+        //更换渠道号
+        function changeChannelNo(){
+            $.each(channelNos,function(i){
+                var chooseChannelNo = $("#channel_mark").val()+"_"+tradeCode+"_"+busiCode ;
+                if(channelNos[i].channelName == chooseChannelNo){
+                    channelNo = channelNos[i].channelNo;
+                    return false ;
+                }
+                channelNo = "111111" ;
+            })
+        }
+
+        //代收付转换
+        function convertTrade(tradeScl){
+            var $trade_busi = $(tradeScl).val();
+            var opTradeCode,opBusiCode;
+            switch ($trade_busi){
+                case "11011" :
+                    opTradeCode = "11011";
+                    opBusiCode = "11101" ;
+                        postUrl=singlePay;
+                    break ;
+                case "11021" :
+                    opTradeCode = "11021";
+                    opBusiCode = "09100" ;
+                        postUrl = singleAcp;
+                    break ;
+                case "11012" :
+                    opTradeCode = "11012";
+                    opBusiCode = "11101" ;
+                        postUrl = batchPay ;
+                    break ;
+                case "11022" :
+                    opTradeCode = "11022";
+                    opBusiCode = "09100" ;
+                        postUrl = batchAcp ;
+                    break ;
+            }
+            //代收付业务切换
+            var flag = false ;
+            if(opTradeCode != tradeCode){
+                flag = true ;
+            }
+            tradeCode = opTradeCode ;
+            busiCode = opBusiCode ;
+            if(flag){
+                resetDetails();
+            }
+            //单笔批次切换
+            $("#batch").remove();
+            var $appendBtn = $("#appendBtn");
+            if(tradeCode=="11012" || tradeCode == "11022"){
+                $appendBtn.css("display","block");
+                appendBatch();
+            }else{
+                $appendBtn.css("display","none");
+            }
+        }
+        //代收代付转换清空明细
+        function resetDetails(){
+            count = 1 ;
+            console.log("清空明细，重新生成")
+            var $details = $("#details");
+            $details.empty();
+            appendTradeTable();
+        }
+        //删除当前明细
+        function delDetail(btn){
+            var $detail = $(btn).parent().parent().parent().parent().parent();
+            $detail.remove();
+            count -- ;
+        }
+        //增加数组元素
+        function append(array,str){
+
+            array[array.length] = str;
+
+        }
+
+        //是否传值
+        function sendOrgCode(checkbox){
+            var flag = $(checkbox).get(0).checked;
+            if(flag){
+                $("#orgCode").val("");
+            }else{
+                changeOrgCode() ;
+            }
+        }
+    </script>
+    <style type="text/css">
+        .btn{width: 100%;display: block;height: 40px;border-radius: 5px;border: 1px solid;text-align: center;
+            line-height: 40px;cursor: pointer;font-size: 20px}
+        .btn:hover {background-color: darkgray}
+        .detail span{
+            display: inline-block;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <p style="font-size: 20px">代收付交易</p>
+    <hr style="margin: 20px 0">
+    <table>
+        <tr>
+            <td>提交URL</td>
+            <td>
+                <div style="position:relative;">
+                     <span style="margin-left:400px;width:18px;overflow:hidden;">
+                     <select style="width:418px;margin-left:-400px"
+                             onchange="this.parentNode.nextSibling.value=this.value">
+                         <option value="121.40.236.90:2181">开发75</option>
+                         <option value="120.26.203.116:2181">测试116alfa</option>
+                         <option value="121.40.126.59:2181">测试59</option>
+                         <option value="120.26.104.20:2181">UAT20</option>
+                         <option value="121.40.114.18:2181">生产18</option>
+                     </select>
+                     </span><input id="urlContent" style="width:400px;position:absolute;left:0px;"
+                                   value="121.40.236.90:2181"
+                                   onfocus="javascript:if(this.value.trim()=='')this.value='121.40.236.90:2181';"
+                                   onblur="javascript:if(this.value.trim()=='')this.value='121.40.236.90:2181';">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                选择渠道
+            </td>
+            <td>
+                <select id="channel_mark" onchange="changeOrgCode();changeChannelNo();">
+                    <option value="gaterouter">多渠道路由</option>
+                    <option value="TongLian_AgentPay">通联网关</option>
+                    <option value="ChanJie_AgentPay">畅捷网关</option>
+                    <option value="UMP_AgentPay">联动网关</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>交易类型</td>
+            <td>
+                <select id="transType" onchange="convertTrade(this)">
+                    <option value="11011" >单笔代付</option>
+                    <option value="11021" >单笔代收</option>
+                    <option value="11012" >批量代付</option>
+                    <option value="11022" >批量代收</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>是否默认配置</td>
+            <td><input type="checkbox" id="isDefaultSettings" checked></td>
+        </tr>
+        <tr>
+            <td>系统号</td>
+            <td><input type="text" value="dsfxt001" id="sysNo"
+                       onfocus="javascript:if(this.value.trim()=='')this.value='dsfxt001';"
+                        onblur="javascript:if(this.value.trim()=='')this.value='dsfxt001';">
+            </td>
+        </tr>
+        <tr>
+            <td>系统密钥</td>
+            <td><input type="text" value="dsfxt0001" id="sysKey"
+                       onfocus="javascript:if(this.value.trim()=='')this.value='dsfxt0001';"
+                       onblur="javascript:if(this.value.trim()=='')this.value='dsfxt00001';">
+            </td>
+        </tr>
+        <tr>
+            <td>机构号</td>
+            <td>
+                <div style="position:relative;">
+                     <span style="margin-left:100px;width:18px;overflow:hidden;">
+                     <select style="width:118px;margin-left:-100px" id="orgNoSelect"
+                             onchange="javascript:this.parentNode.nextSibling.value=this.value;changeOrgCode();">
+                         <option value="M00000X" selected>融数</option>
+                         <option value="M000001">丰年</option>
+                         <option value="M000003">会堂</option>
+                         <option value="M000005">君融贷</option>
+                     </select>
+                     </span><input id="orgNo" style="width:100px;position:absolute;left:0px;" value="M00000X"
+                        onchange="">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>机构代码</td>
+            <td><input id="orgCode" value="" readonly></td> <!--200222000009005-->
+            <td><input type="checkbox" id="checkOrgCode" onclick="sendOrgCode(this)" ></td>
+        </tr>
+    </table>
+    <hr style="margin: 20px 0">
+    <div id="details">
+        <!--交易明细-->
+        <!--由js控制生成-->
+    </div>
+    <p class="btn" id="appendBtn" style="display: none" onclick="appendTradeTable()">添加明细</p>
+    <p class="btn" id="submitBtn" >提交</p>
+    <div id="returnContent">
+        <!--返回内容-->
+        <!--由js控制生成，清空-->
+    </div>
+</body>
+
+</html>

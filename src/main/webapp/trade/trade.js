@@ -1,78 +1,70 @@
 /**
- * Created by 嘉玮 on 2016-5-5.
+ * Created by 嘉玮 on 2016-6-23.
  */
-var url="121.40.236.90";
-var mode = "Indirect";
-var requstNo = "";
+/* 后台url配置 */
 
-$(function () {
-    createTradePage();
+function setMode(mode,remark) {
 
-    
-});
+    $("#mode").val(mode);
+    $("#mode").html(remark+"<span class=\"caret\"></span>");
 
-/*设置url*/
-function setUrl() {
-    url = $("#url").val();
-    console.log(url);
+    if(mode == "batchPay"){
+        $("#transCode").attr("placeholder","11012");
+        $("#channelNo").attr("placeholder","110103");
 
-}
-/*设置直连间连*/
-function setMode(value) {
-    $("#mode").html(value);
-    mode = value ;
-}
-/*保存配置*/
-function saveConfig() {
-    var inputs = $("#config input");
-    $.each(inputs,function (i,input) {
-        var id = $(input).attr("id");
-        var placeHolder = $(input).attr("placeholder");
-        var val = $(input).val();
-
-       saveTemp(id,val);
-
-    })
-}
-
-/*向后台发送临时数据*/
-function saveTemp(id,val) {
-    if(val !=null && val != undefined && val!=""){
-        /*保存值*/
-        $.ajax({
-            url:"saveTemp",
-            data:{
-                key:id,
-                value:val,
-                "mode":mode
-            },
-            type:"POST",
-            success:function (data) {
-                _alert("Send "+data,"have saved your tempdata ...","success");
-            },
-            error:function (data) {
-                _alert("Send failed ! " ,"check background log or call me ^_^","danger");
-            }
-        });
+        $("#dubboMethod").attr("placeholder","batchAgentPay");
+        $("#dubboMethodlist").html(
+            "<option label=\"路由\" value=\"batchAgentPay\"></option>" +
+            "<option label=\"网关\" value=\"batchPayExecute\"></option>"
+        )
+    }
+    if(mode == "singlePay"){
+        $("#transCode").attr("placeholder","11011");
+        $("#channelNo").attr("placeholder","110101");
+        $("#dubboMethod").attr("placeholder","singleAgentPay");
+        $("#dubboMethodlist").html(
+            "<option label=\"路由\" value=\"singleAgentPay\"></option>" +
+            "<option label=\"网关\" value=\"singlePayExecute\"></option>"
+        )
     }
 }
 
-/*提示*/
-function _alert(head,text, type) {
-    $("[role=alert]").remove();
-    var expand = "<div class=\"alert alert-"+type+" alert-dismissible fade in\" role=\"alert\" style='display: none'>"+
-                    "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">" +
-                        "<span aria-hidden=\"true\">&times;</span>" +
-                    "</button>"+
-                    "<strong>"+head+"</strong> "+ text +
-                "</div>";
+function send() {
 
-    $("#alert").html(expand);
-    $("[role=alert]").fadeIn("slow");
-}
+    if(check()){
+        return ;
+    }
 
-/*加载图标*/
-function loadingImg(display) {
-    $("[role=alert]").remove();
-    $("#loading").css("display",display);
+    /*显示加载图标*/
+    loadingImg("inline-block");
+
+    var content = $(".modal-body").html();
+    var lines = content.split("<br>");
+    var params = "";
+    for(var i=0 ;i<lines.length;i++){
+        var line = lines[i];
+        if(line=='requestNo=Req'){
+            line = line + new Date().getTime();
+        }
+
+        params += line ;
+        if(i<lines.length-2){
+            params += "&";
+        }
+    }
+
+    //发送至服务器
+    $.ajax({
+        url:$("#mode").val(),
+        type:"POST",
+        data:params,
+        success:function (data) {
+            loadingImg("none");
+            _alert("Success",data,"success");
+        },
+        error:function (data) {
+            loadingImg("none");
+            _alert("Failure ! ","check background log or call me ^_^","danger");
+        }
+    })
 }
