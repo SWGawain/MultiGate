@@ -19,20 +19,20 @@
                 <entry key="anAlias" value-ref="someFilter"/>
             </util:map>
         </property> -->
-        <property name="filterChainDefinitions">
-            <value>
-                / = anon
-                /res/** = noSessionCreation
-                /index/** = anon
-                /index.jsp = anon
-                /admin/** = authc, roles[admin]
-                /redis/** = authc, roles[redis], roles[admin]
-                /trade/** = authc, roles[trade], roles[admin]
-                /docs/** = authc, perms[document:read]
-                /logout = logout
-                /** = authc
-            </value>
-        </property>
+        <!--<property name="filterChainDefinitions">-->
+            <!--<value>-->
+                <!--/ = anon-->
+                <!--/res/** = noSessionCreation-->
+                <!--/index/** = anon-->
+                <!--/index.jsp = anon-->
+                <!--/admin/** = authc, roles[admin]-->
+                <!--/redis/** = authc, roles[redis], roles[admin]-->
+                <!--/trade/** = authc, roles[trade], roles[admin]-->
+                <!--/docs/** = authc, perms[document:read]-->
+                <!--/logout = logout-->
+                <!--/** = authc-->
+            <!--</value>-->
+        <!--</property>-->
     </bean>
 
 

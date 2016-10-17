@@ -1,0 +1,62 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="res/js/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="res/js/encode.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("#subBtn").click(function(){
+                $("#MsgContent").html("");
+                var $url = $("#urlContent").val();
+                var $gwNo = $("#gwNoContent").val();
+                $.ajax({
+                    type:"POST",
+                    url:"msg/send",
+                    data:"url="+$url+"&gwNo="+$gwNo,
+                    success: function(data){
+                        $("#MsgContent").html(data);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+
+<table>
+    <tr>
+        <td>提交URL</td>
+        <td>
+            <div style="position:relative;">
+             <span style="margin-left:400px;width:18px;overflow:hidden;">
+             <select style="width:418px;margin-left:-400px" onchange="this.parentNode.nextSibling.value=this.value">
+                 <option value="">请选择</option>
+                 <option value="http://121.40.236.90:8094/TLGateWay-web/receiveTest">开发90</option>
+                 <option value="http://120.26.203.116:8094/TLGateWay-web/receiveTest">测试116alfa</option>
+                 <option value="http://121.40.126.59:8094/TLGateWay-web/receiveTest">测试59</option>
+                 <option value="http://120.26.104.20:8094/TLGateWay-web/receiveTest">UAT20</option>
+                 <option value="http://121.40.114.18:8094/TLGateWay-web/receiveTest">生产18</option>
+             </select>
+             </span><input id="urlContent" style="width:400px;position:absolute;left:0px;">
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>提交订单号</td>
+        <td>
+            <input type="text" id="gwNoContent" value="TL" style="width: 400px;">
+        </td>
+    </tr>
+</table>
+
+<input type="button" id="subBtn" value="submit">
+
+<br>
+
+<div id="MsgContent">
+
+</div>
+
+</body>
+</html>
