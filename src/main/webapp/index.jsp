@@ -151,6 +151,15 @@
 						<h3 class="heading">Trade</h3>
 						<p>Trade page for TongLian AgentPay.Single and Batch mode are both supported here.</p>
 					</div>
+
+					<div class="col-md-4 col-sm-6 text-center fh5co-feature feature-box" onclick="window.location.href='trade/batchAcp.html'">
+						<div class="fh5co-feature-icon">
+							<i class="ti-mobile"></i>
+						</div>
+						<h3 class="heading">BatchAcp</h3>
+						<p>BatchAcp page for TongLian AgentPay.Quick and easy are both for the purpose</p>
+					</div>
+
 					<div class="col-md-4 col-sm-6 text-center fh5co-feature feature-box" onclick="window.location.href='redis/redisUtil.html'">
 						<div class="fh5co-feature-icon">
 							<i class="ti-lock"></i>
@@ -169,8 +178,6 @@
 						<p>Auth page for TongLian interface .No more hard code to verify a card.</p>
 					</div>
 
-					<div class="clearfix visible-md-block visible-lg-block"></div>
-
 					<div class="col-md-4 col-sm-6 text-center fh5co-feature feature-box" onclick="window.location.href='qrcode.html'">
 						<div class="fh5co-feature-icon">
 							<i class="ti-shopping-cart"></i>
@@ -188,6 +195,7 @@
 						<h3 class="heading">Release</h3>
 						<p>Release page for LianLian.Cancel a contract for an account. </p>
 					</div>
+					<div class="clearfix visible-md-block visible-lg-block"></div>
 
 				</div>
 				<!-- END row -->

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>ACP</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../res/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="../res/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="../res/css/fileinput.min.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand"  id="auth" href="#">ACP</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right" id="inputs">
+                <div class="form-group">
+                    <input type="text" placeholder="User" class="form-control" id="username">
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Pass" class="form-control" id="password">
+                </div>
+                <button type="button" class="btn btn-success" id="subInit" > Init </button>
+            </form>
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+        <div class="container">
+        <h1>Hello,MuliGates</h1>
+        <p>通联 - 批量代收工具页面，请填写模板文件并提交，about页面为配置参数</p>
+        <div>
+            <div class="dropdown" style="display: inline-block;">
+                <button class="btn btn-default dropdown-toggle MarkedParam" type="button" id="mode" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true" value="dev">
+                    测试环境
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="javascript:setMode('dev','测试环境')">测试环境</a></li>
+                    <li><a href="javascript:setMode('uat','正式环境')">正式环境</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" style="display: inline-block;">
+                <button class="btn btn-default dropdown-toggle MarkedParam" type="button" id="orgNo" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true" value="M000001">
+                    丰年
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="javascript:setOrgNo('M000001','丰年')">丰年</a></li>
+                    <li><a href="javascript:setOrgNo('M00000X','融数')">融数</a></li>
+                    <li><input type="text" placeholder="自定义" class="col-md-7" style="height: 34px;" id="cusOrgNo">
+                        <button type="button" class="btn btn-success" onclick="setOrgNo($('#cusOrgNo').val(),$('#cusOrgNo').val())">√</button></li>
+                </ul>
+            </div>
+            <button type="button" class="btn btn-sm btn-primary" onclick="window.location.href='template.xlsx'">下载模板</button>
+            <button type="button" class="btn btn-sm btn-primary" id="subData" onclick="subData()" style="display: none">提交数据</button>
+        </div>
+        <div style="margin-top: 20px">
+            <div class="form-group" style="display: inline-block;float: left;padding-top: 10px">
+                单笔拆分上限(分):
+            </div>
+            <div class="form-group col-md-2">
+                <input type="text" placeholder="5,000.00" class="form-control" id="limitAmount">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" >
+
+    <div id="alert"></div>
+    <div id="main">
+        <div id="file">
+            <input id="file-0a" type="file" name="file">
+        </div>
+        <div id="params" style="margin-top: 20px">
+        </div>
+    </div>
+</div>
+
+
+</div> <!-- /container -->
+
+
+
+
+
+
+<!-- Bootstrap core JavaScript
+        ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../res/js/jquery-1.10.1.min.js"></script>
+<script src="../res/bootstrap/js/bootstrap.min.js"></script>
+<script src="../res/js/fileinput.min.js"></script>
+<script src="acp.js"></script>
+<script src="../res/js/fileinput_locale_zh.js"></script>
+</body>
+</html>
