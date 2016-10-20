@@ -125,15 +125,16 @@ public class BatchInfos {
             saa.setPayerBankNo(bankNo);
             saa.setPayerBankName(bankName);
             saa.setPayerAccountType(Strings.isNullOrEmpty(accountType)?10:Integer.parseInt(accountType));
-            if(!Strings.isNullOrEmpty(id) && !Strings.isNullOrEmpty(idtype)){
-                Map ex_param = Maps.newHashMap();
-                ex_param.put("id",id);
-                ex_param.put("idtype",idtype);
-                try {
-                    saa.setExpand1(new ObjectMapper().writeValueAsString(ex_param));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+            id = Strings.isNullOrEmpty(id)?"":id;
+            idtype = Strings.isNullOrEmpty(idtype)?"":idtype;
+            Map ex_param = Maps.newHashMap();
+            ex_param.put("id",id);
+            ex_param.put("idtype",idtype);
+            try {
+                saa.setExpand1(new ObjectMapper().writeValueAsString(ex_param));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
             saa.setRemark(remark);
